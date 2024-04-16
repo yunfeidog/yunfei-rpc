@@ -7,9 +7,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>yunfei-easy-rpc</artifactId>
+    <artifactId>yunfei-rpc-core</artifactId>
     <packaging>war</packaging>
-    <name>yunfei-easy-rpc</name>
+    <name>yunfei-rpc-core</name>
 
     <properties>
         <vertx.version>4.5.7</vertx.version>
@@ -29,6 +29,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.14</version>
+        </dependency>
+        <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
         </dependency>
@@ -40,7 +45,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>yunfei-easy-rpc</finalName>
+        <finalName>yunfei-rpc-core</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
