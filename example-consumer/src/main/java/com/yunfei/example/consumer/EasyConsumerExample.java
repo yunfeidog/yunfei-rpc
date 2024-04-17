@@ -8,10 +8,10 @@ import com.yunfei.rpc.utils.ConfigUtils;
 
 public class EasyConsumerExample {
     public static void main(String[] args) {
-        //静态代理
+        // 静态代理
         // UserService userService = new UserServiceProxy();
 
-        //动态代理
+        // 动态代理
         UserService userService = ServiceProxyFactory.getProxy(UserService.class);
         User user = new User();
         user.setName("yunfei");
@@ -23,5 +23,13 @@ public class EasyConsumerExample {
         }
         RpcConfig rpcConfig = ConfigUtils.loadConfig(RpcConfig.class, "rpc");
         System.out.println(rpcConfig);
+
+        testMock();
+    }
+
+    static void testMock() {
+        UserService userService = ServiceProxyFactory.getMockProxy(UserService.class);
+        short number = userService.getNumber();
+        System.out.println("Number: " + number);
     }
 }

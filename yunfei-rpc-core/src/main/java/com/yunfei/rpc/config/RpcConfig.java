@@ -11,7 +11,7 @@ public class RpcConfig {
     /**
      * 名称
      */
-    private String name ="yunfei-rpc";
+    private String name = "yunfei-rpc";
 
     /**
      * 版本号
@@ -28,6 +28,9 @@ public class RpcConfig {
      */
     private int serverPort = 8080;
 
-
+    /**
+     * 模拟调用
+     */
+    private boolean mock = false;
 
 }
