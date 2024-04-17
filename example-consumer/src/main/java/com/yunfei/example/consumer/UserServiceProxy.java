@@ -6,7 +6,7 @@ import com.yunfei.example.model.User;
 import com.yunfei.example.service.UserService;
 import com.yunfei.rpc.model.RpcRequest;
 import com.yunfei.rpc.model.RpcResponse;
-import com.yunfei.rpc.serializer.JDKSerializer;
+import com.yunfei.rpc.serializer.JdkSerializer;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ public class UserServiceProxy implements UserService {
     @Override
     public User getUser(User user) {
         // 指定序列化方式
-        JDKSerializer serializer = new JDKSerializer();
+        JdkSerializer serializer = new JdkSerializer();
 
         // 发送请求
         RpcRequest rpcRequest = RpcRequest.builder()

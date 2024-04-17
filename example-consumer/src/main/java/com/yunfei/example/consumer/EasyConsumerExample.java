@@ -12,6 +12,13 @@ public class EasyConsumerExample {
         // UserService userService = new UserServiceProxy();
 
         // 动态代理
+        // testDynamicProxy();
+
+        // Mock代理
+        testMock();
+    }
+
+    private static void testDynamicProxy() {
         UserService userService = ServiceProxyFactory.getProxy(UserService.class);
         User user = new User();
         user.setName("yunfei");
@@ -23,8 +30,6 @@ public class EasyConsumerExample {
         }
         RpcConfig rpcConfig = ConfigUtils.loadConfig(RpcConfig.class, "rpc");
         System.out.println(rpcConfig);
-
-        testMock();
     }
 
     static void testMock() {
