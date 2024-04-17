@@ -12,6 +12,10 @@ target/
 *.iml
 *.ipr
 
+# 所有目录的.idea文件夹
+.idea/
+**/.idea/
+.fastRequest
 ### Eclipse ###
 .apt_generated
 .classpath

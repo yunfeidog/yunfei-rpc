@@ -2,7 +2,9 @@ package com.yunfei.example.consumer;
 
 import com.yunfei.example.model.User;
 import com.yunfei.example.service.UserService;
+import com.yunfei.rpc.config.RpcConfig;
 import com.yunfei.rpc.proxy.ServiceProxyFactory;
+import com.yunfei.rpc.utils.ConfigUtils;
 
 public class EasyConsumerExample {
     public static void main(String[] args) {
@@ -19,5 +21,7 @@ public class EasyConsumerExample {
         } else {
             System.out.println("Get user failed");
         }
+        RpcConfig rpcConfig = ConfigUtils.loadConfig(RpcConfig.class, "rpc");
+        System.out.println(rpcConfig);
     }
 }

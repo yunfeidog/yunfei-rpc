@@ -8,8 +8,9 @@
     </parent>
     <artifactId>example-common</artifactId>
     <packaging>war</packaging>
-    <name>example-common Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+    <name>example-common</name>
+
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
