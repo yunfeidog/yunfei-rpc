@@ -1,7 +1,10 @@
 package com.yunfei.rpc;
 
+import com.yunfei.rpc.config.RegistryConfig;
 import com.yunfei.rpc.config.RpcConfig;
 import com.yunfei.rpc.constant.RpcConstant;
+import com.yunfei.rpc.registry.Registry;
+import com.yunfei.rpc.registry.RegistryFactory;
 import com.yunfei.rpc.utils.ConfigUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +19,12 @@ public class RpcApplication {
     public static void init(RpcConfig newRpcConfig) {
         rpcConfig = newRpcConfig;
         log.info("rpc application init success,config:{}", rpcConfig);
+        // 注册中心初始化
+        RegistryConfig registryConfig = rpcConfig.getRegistryConfig();
+        Registry registry = RegistryFactory.getInstance(registryConfig.getRegistry());
+        registry.init(registryConfig);
+        log.info("registry init success,config:{}", registryConfig);
+
     }
 
     /**

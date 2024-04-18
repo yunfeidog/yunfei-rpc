@@ -1,16 +1,23 @@
 package com.yunfei.rpc.proxy;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.yunfei.rpc.RpcApplication;
+import com.yunfei.rpc.config.RpcConfig;
+import com.yunfei.rpc.constant.RpcConstant;
 import com.yunfei.rpc.model.RpcRequest;
 import com.yunfei.rpc.model.RpcResponse;
+import com.yunfei.rpc.model.ServiceMetaInfo;
+import com.yunfei.rpc.registry.Registry;
+import com.yunfei.rpc.registry.RegistryFactory;
 import com.yunfei.rpc.serializer.JdkSerializer;
 import com.yunfei.rpc.serializer.Serializer;
 import com.yunfei.rpc.serializer.SerializerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.List;
 
 
 /**
@@ -36,14 +43,28 @@ public class ServiceProxy implements InvocationHandler {
             // 序列化请求
             byte[] bodyBytes = serializer.serialize(rpcRequest);
 
-            // todo 这里地址被写死了，应该是需要注册中心获取服务地址
-            try (HttpResponse httpResponse = HttpRequest.post("http://localhost:8080").body(bodyBytes).execute()) {
+            // 从注册中心获取服务提供者请求地址
+            RpcConfig rpcConfig = RpcApplication.getRpcConfig();
+            Registry registry = RegistryFactory.getInstance(rpcConfig.getRegistryConfig().getRegistry());
+            ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();
+            // 构造请求
+            String serviceName = method.getDeclaringClass().getName();
+            serviceMetaInfo.setServiceName(serviceName);
+            serviceMetaInfo.setServiceVersion(RpcConstant.DEFAULT_SERVICE_VERSION);
+            List<ServiceMetaInfo> serviceMetaInfos = registry.serviceDiscovery(serviceMetaInfo.getServiceKey());
+            if (CollUtil.isEmpty(serviceMetaInfos)) {
+                throw new RuntimeException("暂无可用服务提供者");
+            }
+            // 暂时先取第一个
+            ServiceMetaInfo metaInfo = serviceMetaInfos.get(0);
+
+            // 发送请求
+            try (HttpResponse httpResponse = HttpRequest.post(metaInfo.getServiceAddress()).body(bodyBytes).execute()) {
                 byte[] result = httpResponse.bodyBytes();
                 // 反序列化响应
                 RpcResponse rpcResponse = serializer.deserialize(result, RpcResponse.class);
                 return rpcResponse.getData();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

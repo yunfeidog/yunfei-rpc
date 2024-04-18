@@ -29,8 +29,6 @@ public class ServiceProxy implements InvocationHandler {
         try {
             //序列化请求
             byte[] bodyBytes = serializer.serialize(rpcRequest);
-
-            //todo 这里地址被写死了，应该是需要注册中心获取服务地址
             try (HttpResponse httpResponse = HttpRequest.post("http://localhost:8080").body(bodyBytes).execute()) {
                 byte[] result = httpResponse.bodyBytes();
                 //反序列化响应

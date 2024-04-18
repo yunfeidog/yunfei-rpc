@@ -1,5 +1,6 @@
 package com.yunfei.rpc.config;
 
+import cn.hutool.core.util.StrUtil;
 import com.yunfei.rpc.serializer.SerializerKeys;
 import lombok.Data;
 
@@ -39,4 +40,8 @@ public class RpcConfig {
      */
     private String serializer = SerializerKeys.JDK;
 
+    /**
+     * 注册中心配置
+     */
+    private RegistryConfig registryConfig;
 }

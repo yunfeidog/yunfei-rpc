@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="fastRequestCurrentProjectLocalConfig">
+    <option name="enableEnv" />
+    <option name="enableProject" />
     <option name="initFlag" value="1" />
   </component>
 </project>
