@@ -1,0 +1,4 @@
+ failFast=com.yunfei.rpc.fault.tolerant.FailFastTolerantStrategy
+ failSafe=com.yunfei.rpc.fault.tolerant.FailSafeTolerantStrategy
+ failBack=com.yunfei.rpc.fault.tolerant.FailBackTolerantStrategy
+ failOver=com.yunfei.rpc.fault.tolerant.FailOverTolerantStrategy
