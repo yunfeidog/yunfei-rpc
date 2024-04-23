@@ -7,6 +7,8 @@ import cn.hutool.http.HttpResponse;
 import com.yunfei.rpc.RpcApplication;
 import com.yunfei.rpc.config.RpcConfig;
 import com.yunfei.rpc.constant.RpcConstant;
+import com.yunfei.rpc.fault.retry.RetryStrategy;
+import com.yunfei.rpc.fault.retry.RetryStrategyFactory;
 import com.yunfei.rpc.loadbalancer.LoadBalancer;
 import com.yunfei.rpc.loadbalancer.LoadBalancerFactory;
 import com.yunfei.rpc.model.RpcRequest;
@@ -82,8 +84,12 @@ public class ServiceProxy implements InvocationHandler {
             // }
 
             // 发送TCP请求
-            RpcResponse rpcResponse = VertxTcpClient.doRequest(rpcRequest, metaInfo);
-            return rpcResponse.getData();
+            // 使用重试策略
+            RetryStrategy retryStrategy = RetryStrategyFactory.getInstance(rpcConfig.getRetryStrategy());
+            RpcResponse response = retryStrategy.doRetry(() -> {
+                return VertxTcpClient.doRequest(rpcRequest, metaInfo);
+            });
+            return response.getData();
         } catch (Exception e) {
             e.printStackTrace();
         }

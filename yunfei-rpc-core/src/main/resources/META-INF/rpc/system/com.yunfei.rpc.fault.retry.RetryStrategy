@@ -1,0 +1,2 @@
+no=com.yunfei.rpc.fault.retry.NoRetryStrategy
+fixedInterval=com.yunfei.rpc.fault.retry.FixedIntervalRetryStrategy
