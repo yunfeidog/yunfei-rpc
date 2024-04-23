@@ -8,18 +8,8 @@ import com.yunfei.rpc.utils.ConfigUtils;
 
 public class EasyConsumerExample {
     public static void main(String[] args) {
-        // 静态代理
-        // UserService userService = new UserServiceProxy();
-
-        // 动态代理
-        // testDynamicProxy();
-
-        // Mock代理
-        testMock();
-    }
-
-    private static void testDynamicProxy() {
         UserService userService = ServiceProxyFactory.getProxy(UserService.class);
+
         User user = new User();
         user.setName("yunfei");
         User newUser = userService.getUser(user);
@@ -28,13 +18,9 @@ public class EasyConsumerExample {
         } else {
             System.out.println("Get user failed");
         }
-        RpcConfig rpcConfig = ConfigUtils.loadConfig(RpcConfig.class, "rpc");
-        System.out.println(rpcConfig);
+
+
     }
 
-    static void testMock() {
-        UserService userService = ServiceProxyFactory.getMockProxy(UserService.class);
-        short number = userService.getNumber();
-        System.out.println("Number: " + number);
-    }
+
 }

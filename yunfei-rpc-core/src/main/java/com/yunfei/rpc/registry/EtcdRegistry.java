@@ -132,8 +132,8 @@ public class EtcdRegistry implements Registry {
 
     @Override
     public void heartbeat() {
-        // 10s续约一次
-        CronUtil.schedule("*/10 * * * * *", new Task() {
+        // 100s续约一次
+        CronUtil.schedule("*/100 * * * * *", new Task() {
             @Override
             public void execute() {
                 for (String key : localRegisterNodeKeySet) {

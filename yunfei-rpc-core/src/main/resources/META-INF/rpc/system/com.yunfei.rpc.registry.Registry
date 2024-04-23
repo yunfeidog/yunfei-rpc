@@ -1,2 +1,2 @@
 etcd=com.yunfei.rpc.registry.EtcdRegistry
-zookpeer=com.yunfei.rpc.registry.ZookeeperRegistry
+zookeeper=com.yunfei.rpc.registry.ZooKeeperRegistry

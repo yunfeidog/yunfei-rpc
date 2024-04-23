@@ -84,7 +84,9 @@ public class ZooKeeperRegistry implements Registry {
     }
 
     private ServiceInstance<ServiceMetaInfo> buildServiceInstance(ServiceMetaInfo serviceMetaInfo) {
-        String serviceAddress = serviceMetaInfo.getServiceHost() + ":" + serviceMetaInfo.getServicePort();
+        // String serviceAddress = serviceMetaInfo.getServiceHost() + ":" + serviceMetaInfo.getServicePort();
+        String serviceAddress = serviceMetaInfo.getServiceAddress();
+        System.out.println("serviceAddress: " + serviceAddress);
         try {
             return ServiceInstance
                     .<ServiceMetaInfo>builder()

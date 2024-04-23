@@ -14,6 +14,7 @@ public class ProtocolMessageTest {
         // 构造消息
         ProtocolMessage<RpcRequest> protocolMessage = new ProtocolMessage<>();
         ProtocolMessage.Header header = new ProtocolMessage.Header();
+
         header.setMagic(ProtocolConstant.PROTOCOL_MAGIC);
         header.setVersion(ProtocolConstant.PROTOCOL_VERSION);
         header.setSerializer((byte) ProtocolMessageSerializerEnum.JDK.getKey());
@@ -21,6 +22,7 @@ public class ProtocolMessageTest {
         header.setStatus((byte) ProtocolMessageStatusEnum.OK.getValue());
         header.setRequestId(IdUtil.getSnowflakeNextId());
         header.setBodyLength(0);
+
         RpcRequest rpcRequest = new RpcRequest();
         rpcRequest.setServiceName("myService");
         rpcRequest.setMethodName("myMethod");
@@ -32,6 +34,7 @@ public class ProtocolMessageTest {
 
         Buffer encodeBuffer = ProtocolMessageEncoder.encode(protocolMessage);
         ProtocolMessage<?> message = ProtocolMessageDecoder.decode(encodeBuffer);
+        System.out.println("message: " + message);
         Assert.assertNotNull(message);
     }
 }

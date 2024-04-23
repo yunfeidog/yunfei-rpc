@@ -1,9 +1,12 @@
 package com.yunfei.rpc.server;
 
+import com.yunfei.rpc.RpcApplication;
 import com.yunfei.rpc.model.RpcRequest;
 import com.yunfei.rpc.model.RpcResponse;
 import com.yunfei.rpc.registry.LocalRegistry;
 import com.yunfei.rpc.serializer.JdkSerializer;
+import com.yunfei.rpc.serializer.Serializer;
+import com.yunfei.rpc.serializer.SerializerFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
@@ -12,10 +15,11 @@ import io.vertx.core.http.HttpServerResponse;
 import java.lang.reflect.Method;
 
 public class HttpServerHandler implements Handler<HttpServerRequest> {
+    final Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
 
     @Override
     public void handle(HttpServerRequest request) {
-        final JdkSerializer serializer = new JdkSerializer();
+        // final JdkSerializer serializer = new JdkSerializer();
 
         System.out.println("reveive request:" + request.method() + " " + request.uri());
 
@@ -55,7 +59,7 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
         });
     }
 
-    private void doResponse(HttpServerRequest request, RpcResponse rpcResponse, JdkSerializer serializer) {
+    private void doResponse(HttpServerRequest request, RpcResponse rpcResponse, Serializer serializer) {
         HttpServerResponse httpServerResponse = request.response()
                 .putHeader("content-type", "application/json");
         try {

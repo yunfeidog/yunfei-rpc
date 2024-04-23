@@ -43,5 +43,5 @@ public class RpcConfig {
     /**
      * 注册中心配置
      */
-    private RegistryConfig registryConfig;
+    private RegistryConfig registryConfig= new RegistryConfig();
 }

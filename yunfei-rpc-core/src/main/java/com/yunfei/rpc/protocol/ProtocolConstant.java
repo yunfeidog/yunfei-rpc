@@ -7,7 +7,7 @@ public interface ProtocolConstant {
     /**
      * 消息头长度
      */
-    int MESSAAGE_HEADER_LENGTH= 17;
+    int MESSAGE_HEADER_LENGTH= 17;
 
     /**
      * 魔数
