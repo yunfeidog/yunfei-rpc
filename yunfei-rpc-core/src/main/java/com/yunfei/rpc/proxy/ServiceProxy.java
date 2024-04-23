@@ -7,6 +7,8 @@ import cn.hutool.http.HttpResponse;
 import com.yunfei.rpc.RpcApplication;
 import com.yunfei.rpc.config.RpcConfig;
 import com.yunfei.rpc.constant.RpcConstant;
+import com.yunfei.rpc.loadbalancer.LoadBalancer;
+import com.yunfei.rpc.loadbalancer.LoadBalancerFactory;
 import com.yunfei.rpc.model.RpcRequest;
 import com.yunfei.rpc.model.RpcResponse;
 import com.yunfei.rpc.model.ServiceMetaInfo;
@@ -24,6 +26,7 @@ import io.vertx.core.net.NetSocket;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -63,8 +66,12 @@ public class ServiceProxy implements InvocationHandler {
             if (CollUtil.isEmpty(serviceMetaInfos)) {
                 throw new RuntimeException("暂无可用服务提供者");
             }
-            // 暂时先取第一个
-            ServiceMetaInfo metaInfo = serviceMetaInfos.get(0);
+
+            // 负载均衡
+            LoadBalancer loadBalancer = LoadBalancerFactory.getInstance(rpcConfig.getLoadBalancer());
+            HashMap<String, Object> requestParams = new HashMap<>();
+            requestParams.put("methodName", rpcRequest.getMethodName());
+            ServiceMetaInfo metaInfo = loadBalancer.select(requestParams, serviceMetaInfos);
 
             // // 发送请求
             // try (HttpResponse httpResponse = HttpRequest.post(metaInfo.getServiceAddress()).body(bodyBytes).execute()) {
