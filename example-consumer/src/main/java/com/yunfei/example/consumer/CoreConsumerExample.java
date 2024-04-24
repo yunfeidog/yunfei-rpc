@@ -2,29 +2,26 @@ package com.yunfei.example.consumer;
 
 import com.yunfei.example.model.User;
 import com.yunfei.example.service.UserService;
+import com.yunfei.rpc.bootstrap.ConsumerBootstrap;
 import com.yunfei.rpc.config.RpcConfig;
 import com.yunfei.rpc.proxy.ServiceProxyFactory;
-import com.yunfei.rpc.registry.LocalRegistry;
-import com.yunfei.rpc.server.tcp.VertxTcpClient;
 import com.yunfei.rpc.utils.ConfigUtils;
 
 public class CoreConsumerExample {
     public static void main(String[] args) {
-        // 静态代理
-        // UserService userService = new UserServiceProxy();
+        ConsumerBootstrap.init();
 
+        // 获取 代理
+        UserService userService = ServiceProxyFactory.getProxy(UserService.class);
+        User user = new User();
+        user.setName("cxk");
 
-        // 动态代理
-        // testDynamicProxy();
-
-        // Mock代理
-        // testMock();
-
-        // 加载配置
-        // testLoadConfig();
-
-        new VertxTcpClient().start();
-
+        User user1 = userService.getUser(user);
+        if (user1 != null) {
+            System.out.println(user1.getName());
+        } else {
+            System.out.println("user==null");
+        }
     }
 
     private static void testDynamicProxy() {

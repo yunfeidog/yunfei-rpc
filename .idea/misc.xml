@@ -6,6 +6,9 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/yunfei-rpc-core/pom.xml" />
+        <option value="$PROJECT_DIR$/yunfei-rpc-spring-boot-starter/pom.xml" />
+        <option value="$PROJECT_DIR$/example-springboot-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/example-springboot-provider/pom.xml" />
       </list>
     </option>
   </component>
