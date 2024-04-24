@@ -62,12 +62,8 @@ public class EtcdRegistry implements Registry {
 
         // 设置要存储的键值对
         String registerKey = ETCD_ROOT_PATH + serviceMetaInfo.getServiceNodeKey();
-        System.out.println("注册服务：" + registerKey);
-
         ByteSequence key = ByteSequence.from(registerKey, StandardCharsets.UTF_8);
         ByteSequence value = ByteSequence.from(JSONUtil.toJsonStr(serviceMetaInfo), StandardCharsets.UTF_8);
-        System.out.println("注册服务：" + value.toString(StandardCharsets.UTF_8));
-        System.out.println("注册服务：" + serviceMetaInfo);
 
         // 将键值对与租约绑定 并设置过期时间
         PutOption putOption = PutOption.builder().withLeaseId(leaseId).build();
@@ -95,12 +91,15 @@ public class EtcdRegistry implements Registry {
         try {
             List<KeyValue> keyValues = kvClient.get(ByteSequence.from(searchPrefix, StandardCharsets.UTF_8), getOption).get().getKvs();
             // 解析服务
-            return keyValues.stream().map(keyValue -> {
+            List<ServiceMetaInfo> serviceMetaInfos = keyValues.stream().map(keyValue -> {
                 String key = keyValue.getValue().toString(StandardCharsets.UTF_8);
                 // 监听key的变化
                 watch(key);
                 return JSONUtil.toBean(key, ServiceMetaInfo.class);
             }).collect(Collectors.toList());
+            // 写入缓存
+            registryServiceCache.writeCache(serviceMetaInfos);
+            return serviceMetaInfos;
         } catch (Exception e) {
             throw new RuntimeException("服务发现失败", e);
         }
@@ -133,7 +132,7 @@ public class EtcdRegistry implements Registry {
     @Override
     public void heartbeat() {
         // 100s续约一次
-        CronUtil.schedule("*/100 * * * * *", new Task() {
+        CronUtil.schedule("*/10 * * * * *", new Task() {
             @Override
             public void execute() {
                 for (String key : localRegisterNodeKeySet) {

@@ -12,6 +12,9 @@ import io.vertx.core.net.NetClient;
 import io.vertx.core.net.NetSocket;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class VertxTcpClient {
 
@@ -21,47 +24,51 @@ public class VertxTcpClient {
         NetClient netClient = vertx.createNetClient();
         CompletableFuture<RpcResponse> responseFuture = new CompletableFuture<>();
         netClient.connect(metaInfo.getServicePort(), metaInfo.getServiceHost(), res -> {
-            if (res.succeeded()) {
-                System.out.println("Connected to TCP server");
-                NetSocket socket = res.result();
+            if (!res.succeeded()) {
+                System.err.println("Failed to connect to TCP server");
+                return;
+            }
+            System.out.println("Connected to TCP server");
+            NetSocket socket = res.result();
 
-                // 发送数据
-                ProtocolMessage<Object> protocolMessage = new ProtocolMessage<>();
-                ProtocolMessage.Header header = new ProtocolMessage.Header();
+            // 发送数据
+            ProtocolMessage<Object> protocolMessage = new ProtocolMessage<>();
+            ProtocolMessage.Header header = new ProtocolMessage.Header();
 
-                header.setMagic(ProtocolConstant.PROTOCOL_MAGIC);
-                header.setVersion(ProtocolConstant.PROTOCOL_VERSION);
-                header.setSerializer((byte) ProtocolMessageSerializerEnum.getEnumByValue(RpcApplication.getRpcConfig().getSerializer()).getKey());
-                header.setType((byte) ProtocolMessageTypeEnum.REQUEST.getKey());
-                header.setRequestId(IdUtil.getSnowflakeNextId());
+            header.setMagic(ProtocolConstant.PROTOCOL_MAGIC);
+            header.setVersion(ProtocolConstant.PROTOCOL_VERSION);
+            header.setSerializer((byte) ProtocolMessageSerializerEnum.getEnumByValue(RpcApplication.getRpcConfig().getSerializer()).getKey());
+            header.setType((byte) ProtocolMessageTypeEnum.REQUEST.getKey());
+            header.setRequestId(IdUtil.getSnowflakeNextId());
 
-                protocolMessage.setHeader(header);
-                protocolMessage.setBody(rpcRequest);
-                // 编码请求
+            protocolMessage.setHeader(header);
+            protocolMessage.setBody(rpcRequest);
+            // 编码请求
+            try {
+                Buffer encodeBuffer = ProtocolMessageEncoder.encode(protocolMessage);
+                socket.write(encodeBuffer);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            // 接收响应
+            TcpBufferHandlerWrapper tcpBufferHandlerWrapper = new TcpBufferHandlerWrapper(buffer -> {
                 try {
-                    Buffer encodeBuffer = ProtocolMessageEncoder.encode(protocolMessage);
-                    socket.write(encodeBuffer);
+                    ProtocolMessage<RpcResponse> responseProtocolMessage = (ProtocolMessage<RpcResponse>) ProtocolMessageDecoder.decode(buffer);
+                    responseFuture.complete(responseProtocolMessage.getBody());
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    throw new RuntimeException("协议消息码错误");
                 }
 
-                // 接收响应
-                TcpBufferHandlerWrapper tcpBufferHandlerWrapper = new TcpBufferHandlerWrapper(buffer -> {
-                    try {
-                        ProtocolMessage<RpcResponse> responseProtocolMessage = (ProtocolMessage<RpcResponse>) ProtocolMessageDecoder.decode(buffer);
-                        responseFuture.complete(responseProtocolMessage.getBody());
-                    } catch (Exception e) {
-                        throw new RuntimeException("协议消息码错误");
-                    }
+            });
+            socket.handler(tcpBufferHandlerWrapper);
 
-                });
 
-            } else {
-                System.out.println("Failed to connect: " + res.cause().getMessage());
-                responseFuture.completeExceptionally(res.cause());
-            }
         });
-        RpcResponse rpcResponse = responseFuture.get();
+        System.out.println("Waiting for response");
+        RpcResponse rpcResponse = null;
+        rpcResponse = responseFuture.get(5, TimeUnit.SECONDS);
+        System.out.println("Received response");
         netClient.close();
         return rpcResponse;
     }

@@ -27,13 +27,15 @@ public class RpcInitBootStrap implements ImportBeanDefinitionRegistrar {
         boolean needServer = (boolean) importingClassMetadata.getAnnotationAttributes(EnableYunRpc.class.getName()).get("needServer");
 
         // Rpc框架初始化（配置和注册中心）
+        RpcApplication.init();
+
         final RpcConfig rpcConfig = RpcApplication.getRpcConfig();
 
         // 启动服务器
         if (needServer) {
             VertxTcpServer vertxTcpServer = new VertxTcpServer();
             vertxTcpServer.doStart(rpcConfig.getServerPort());
-        }else{
+        } else {
             log.info("Rpc server is not started");
         }
     }

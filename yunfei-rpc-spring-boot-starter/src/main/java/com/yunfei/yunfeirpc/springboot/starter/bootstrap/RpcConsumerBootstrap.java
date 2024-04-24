@@ -2,6 +2,7 @@ package com.yunfei.yunfeirpc.springboot.starter.bootstrap;
 
 import com.yunfei.rpc.proxy.ServiceProxyFactory;
 import com.yunfei.yunfeirpc.springboot.starter.annotation.YunRpcReference;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
@@ -11,6 +12,7 @@ import java.lang.reflect.Field;
  * @author houyunfei
  * 服务消费者启动类
  */
+@Slf4j
 public class RpcConsumerBootstrap implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
@@ -25,12 +27,15 @@ public class RpcConsumerBootstrap implements BeanPostProcessor {
                 if (interfaceClass == void.class) {
                     interfaceClass = field.getType();
                 }
+                System.out.println("生成代理对象:" + interfaceClass.getName()+"  "+field.getType());
                 field.setAccessible(true);
+                log.info("生成代理对象:{}", interfaceClass.getName());
                 Object proxy = ServiceProxyFactory.getProxy(interfaceClass);
                 try {
                     field.set(bean, proxy);
                     field.setAccessible(false);
                 } catch (IllegalAccessException e) {
+                    System.out.println("生成代理对象失败");
                     throw new RuntimeException(e);
                 }
             }

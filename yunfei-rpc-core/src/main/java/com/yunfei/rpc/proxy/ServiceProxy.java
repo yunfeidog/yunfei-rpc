@@ -54,8 +54,6 @@ public class ServiceProxy implements InvocationHandler {
                 .args(args)
                 .build();
 
-        // 序列化请求
-        byte[] bodyBytes = serializer.serialize(rpcRequest);
 
         // 从注册中心获取服务提供者请求地址
         RpcConfig rpcConfig = RpcApplication.getRpcConfig();
@@ -86,7 +84,7 @@ public class ServiceProxy implements InvocationHandler {
 
         // 发送TCP请求
         // 使用重试策略
-        RpcResponse response = null;
+        RpcResponse response ;
         try {
             RetryStrategy retryStrategy = RetryStrategyFactory.getInstance(rpcConfig.getRetryStrategy());
             response = retryStrategy.doRetry(() -> {
