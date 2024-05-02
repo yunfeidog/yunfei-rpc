@@ -28,6 +28,11 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.29</version>
+        </dependency>
         <!--        重试策略-->
         <dependency>
             <groupId>com.github.rholder</groupId>
