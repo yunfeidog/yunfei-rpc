@@ -1,6 +1,6 @@
 export const siteConfig = {
     //config.ts
-    base: "/yunfei-rpc-docs",
+    base: "/yunfei-rpc-docs/",
     title: "手写RPC框架",
     description: "自己动手，手写一个RPC框架",
 
@@ -17,7 +17,7 @@ export const siteConfig = {
     // 网站图标
     logo: "/site_logo.png",
     // 导航栏上的个人仓库地址
-    repo: "https://github.com/yunfeidog",
+    repo: "https://github.com/yunfeidog/yunfei-rpc",
 
     // 自定义仓库链接文字-默认从repo中自动推断为"GitHub" / "GitLab" / "Gitee" / "Bitbucket" 其中之一，或是 "Source"。
     repoLabel: "Github",
