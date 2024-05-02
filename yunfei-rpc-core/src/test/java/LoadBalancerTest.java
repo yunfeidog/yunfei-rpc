@@ -1,7 +1,5 @@
 import com.yunfei.rpc.loadbalancer.ConsistentHashLoadBalancer;
 import com.yunfei.rpc.loadbalancer.LoadBalancer;
-import com.yunfei.rpc.loadbalancer.RandomLoadBalancer;
-import com.yunfei.rpc.loadbalancer.RoundRobinLoadBalancer;
 import com.yunfei.rpc.model.ServiceMetaInfo;
 import org.junit.jupiter.api.Test;
 

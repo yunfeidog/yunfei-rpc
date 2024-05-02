@@ -20,7 +20,7 @@ public class JdkSerializer implements Serializer {
             return (T) objectInputStream.readObject();
         } catch (ClassNotFoundException e) {
             throw new IOException(e);
-        }finally {
+        } finally {
             objectInputStream.close();
         }
     }
