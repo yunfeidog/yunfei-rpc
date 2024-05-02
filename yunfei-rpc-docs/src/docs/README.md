@@ -1,22 +1,31 @@
 ---
-date: 2020-12-01
+date: 2024-05-01
 title: 主页
 ---
 
 本次手写RPC框架参考了许多优秀的设计，如下：
 
+完整的RPC实现思路：
+
++ 从零开始实现简单 RPC 框架：https://www.cnblogs.com/chenchuxin
++ RPC-Dubbo架构：https://ldbmcs.gitbook.io/java/fen-bu-shi-1/rpc/rpc-dubbo-de-jia-gou-yuan-li
++ Dubbo官网：https://cn.dubbo.apache.org/zh-cn/overview/home/
+
 序列化方式解决方案：
-https://www.51cto.com/article/748249.html
 
-完整的RPC实现思路：https://www.cnblogs.com/chenchuxin
++ 深入理解RPC框架的序列化方案：https://www.51cto.com/article/748249.html
 
-RPC-Dubbo架构：https://ldbmcs.gitbook.io/java/fen-bu-shi-1/rpc/rpc-dubbo-de-jia-gou-yuan-li
+SPI机制部分：
 
-剖析 | SOFARPC 框架之总体设计与扩展机制：https://mp.weixin.qq.com/s/ZKUmmFT0NWEAvba2MJiJfA
++ SPI机制：https://pdai.tech/md/java/advanced/java-advanced-spi.html
++ Java SPI 机制详解:https://javaguide.cn/java/basis/spi.html
++ Java SPI概念、实现原理、优缺点、应用场景、使用步骤、实战SPI案例:https://www.51cto.com/article/756685.html
 
-Dubbo官网：https://cn.dubbo.apache.org/zh-cn/overview/home/
+接口Mock部分
 
-SPI机制部分：  
-SPI机制：https://pdai.tech/md/java/advanced/java-advanced-spi.html
-Java SPI 机制详解:https://javaguide.cn/java/basis/spi.html  
-Java SPI概念、实现原理、优缺点、应用场景、使用步骤、实战SPI案例:https://www.51cto.com/article/756685.html
++ 接口Mock服务方案设计：https://blog.daraw.cn/2019/06/12/thrift-rpc-mock/
++ 基于动态代理 Mock dubbo 服务的实现方案：https://tech.youzan.com/ji-yu-dong-tai-dai-li-mock-dubbofu-wu-de-shi-xian-fang-an/
+
+其他：
+
++ 剖析 | SOFARPC 框架之总体设计与扩展机制：https://mp.weixin.qq.com/s/ZKUmmFT0NWEAvba2MJiJfA
