@@ -15,3 +15,8 @@ RPC-Dubbo架构：https://ldbmcs.gitbook.io/java/fen-bu-shi-1/rpc/rpc-dubbo-de-j
 剖析 | SOFARPC 框架之总体设计与扩展机制：https://mp.weixin.qq.com/s/ZKUmmFT0NWEAvba2MJiJfA
 
 Dubbo官网：https://cn.dubbo.apache.org/zh-cn/overview/home/
+
+SPI机制部分：  
+SPI机制：https://pdai.tech/md/java/advanced/java-advanced-spi.html
+Java SPI 机制详解:https://javaguide.cn/java/basis/spi.html  
+Java SPI概念、实现原理、优缺点、应用场景、使用步骤、实战SPI案例:https://www.51cto.com/article/756685.html

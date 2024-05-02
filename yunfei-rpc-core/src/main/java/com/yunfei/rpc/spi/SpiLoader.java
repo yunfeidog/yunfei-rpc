@@ -44,8 +44,8 @@ public class SpiLoader {
      * 扫描路径
      */
     private static final String[] SCAN_DIRS = new String[]{
+            RPC_SYSTEM_SPI_DIR,
             RPC_CUSTOM_SPI_DIR,
-            RPC_SYSTEM_SPI_DIR
     };
 
     /**
@@ -74,6 +74,7 @@ public class SpiLoader {
         // 扫描路径，用户自定义的SPI 优先级高于系统SPI
         HashMap<String, Class<?>> keyClassMap = new HashMap<>();
         for (String scanDir : SCAN_DIRS) {
+            log.info("扫描路径为 {}", scanDir + loadClass.getName());
             List<URL> resources = ResourceUtil.getResources(scanDir + loadClass.getName());
             // 读取每个资源文件
             for (URL resource : resources) {
@@ -89,6 +90,7 @@ public class SpiLoader {
                         }
                         String key = split[0];
                         String className = split[1];
+                        log.info("加载 {} SPI配置文件 key={} className={}", scanDir.equals(RPC_CUSTOM_SPI_DIR) ? "自定义" : "系统", key, className);
                         keyClassMap.put(key, Class.forName(className));
                     }
                 } catch (Exception e) {
