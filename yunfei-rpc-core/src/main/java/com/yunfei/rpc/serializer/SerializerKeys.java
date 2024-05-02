@@ -8,5 +8,6 @@ public interface SerializerKeys {
     String JSON="json";
     String KRYO="kryo";
     String HESSIAN="hessian";
+    String PROTOSTUFF="protostuff";
 
 }

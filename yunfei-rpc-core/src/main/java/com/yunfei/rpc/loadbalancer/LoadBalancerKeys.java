@@ -20,4 +20,9 @@ public interface LoadBalancerKeys {
      */
     String CONSISTENT_HASH = "consistentHash";
 
+    /**
+     * 加权轮询
+     */
+    String WEIGHTED_ROUND_ROBIN = "weightedRoundRobin";
+
 }

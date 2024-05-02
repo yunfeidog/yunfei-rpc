@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * 随机负载均衡器 （消费端使用）
+ */
 public class RandomLoadBalancer implements LoadBalancer {
     private final Random random = new Random();
 

@@ -31,6 +31,11 @@ public class ServiceMetaInfo {
     private Integer servicePort;
 
     /**
+     * 服务权重
+     */
+    private int weight = 1;
+
+    /**
      * 获取服务键名
      */
     public String getServiceKey() {
