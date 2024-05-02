@@ -16,5 +16,7 @@
     <file url="file://$PROJECT_DIR$/yunfei-rpc-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yunfei-rpc-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yunfei-rpc-spring-boot-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yunfei-rpc-test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yunfei-rpc-test/src/main/resources" charset="UTF-8" />
   </component>
 </project>

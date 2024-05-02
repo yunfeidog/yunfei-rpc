@@ -40,3 +40,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/yunfei-rpc-docs/src/.vuepress/.cache/
+/yunfei-rpc-docs/src/.vuepress/.temp/
+!/yunfei-rpc-docs/src/.vuepress/.cache/
+
+!/yunfei-rpc-docs/src/.vuepress/.temp/
+/.idea/
