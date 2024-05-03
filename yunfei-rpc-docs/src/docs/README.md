@@ -34,8 +34,10 @@ SPI机制部分：
 + 什么是负载均衡：https://www.codefather.cn/%E4%BB%80%E4%B9%88%E6%98%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/
 
 重试与容错：
-利用Spring-Retry定制化你的RPC重试：https://kriszhang.com/spring-retry/
++ 利用Spring-Retry定制化你的RPC重试：https://kriszhang.com/spring-retry/
++ 详解-手写RPC框架（7）- 服务容错：https://blog.csdn.net/qq_18884633/article/details/132053496
+
+
 
 其他：
-
 + 剖析 | SOFARPC 框架之总体设计与扩展机制：https://mp.weixin.qq.com/s/ZKUmmFT0NWEAvba2MJiJfA

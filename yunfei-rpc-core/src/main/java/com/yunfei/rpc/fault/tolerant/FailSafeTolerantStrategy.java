@@ -11,6 +11,17 @@ import java.util.Map;
  */
 @Slf4j
 public class FailSafeTolerantStrategy implements TolerantStrategy {
+
+    private final RpcResponse defaultResponse;
+
+    public FailSafeTolerantStrategy(RpcResponse rpcResponse) {
+        this.defaultResponse = rpcResponse;
+    }
+
+    public FailSafeTolerantStrategy() {
+        this.defaultResponse = new RpcResponse();
+    }
+
     /**
      * 静默处理 - 不通知调用方失败，只记录日志
      *
@@ -21,6 +32,6 @@ public class FailSafeTolerantStrategy implements TolerantStrategy {
     @Override
     public RpcResponse doTolerant(Map<String, Object> context, Exception e) {
         log.info("FailSafeTolerantStrategy doTolerant", e);
-        return new RpcResponse();
+        return defaultResponse;
     }
 }

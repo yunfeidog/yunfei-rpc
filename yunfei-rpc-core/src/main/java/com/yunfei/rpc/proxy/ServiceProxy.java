@@ -7,6 +7,7 @@ import cn.hutool.http.HttpResponse;
 import com.yunfei.rpc.RpcApplication;
 import com.yunfei.rpc.config.RpcConfig;
 import com.yunfei.rpc.constant.RpcConstant;
+import com.yunfei.rpc.constant.TolerantStrategyConstant;
 import com.yunfei.rpc.fault.retry.RetryStrategy;
 import com.yunfei.rpc.fault.retry.RetryStrategyFactory;
 import com.yunfei.rpc.fault.tolerant.TolerantStrategy;
@@ -32,6 +33,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -74,14 +76,6 @@ public class ServiceProxy implements InvocationHandler {
         requestParams.put("methodName", rpcRequest.getMethodName());
         ServiceMetaInfo metaInfo = loadBalancer.select(requestParams, serviceMetaInfos);
 
-        // // 发送请求
-        // try (HttpResponse httpResponse = HttpRequest.post(metaInfo.getServiceAddress()).body(bodyBytes).execute()) {
-        //     byte[] result = httpResponse.bodyBytes();
-        //     // 反序列化响应
-        //     RpcResponse rpcResponse = serializer.deserialize(result, RpcResponse.class);
-        //     return rpcResponse.getData();
-        // }
-
         // 发送TCP请求
         // 使用重试策略
         RpcResponse response ;
@@ -92,7 +86,12 @@ public class ServiceProxy implements InvocationHandler {
             });
         } catch (Exception e) {
             TolerantStrategy strategy = TolerantStrategyFactory.getInstance(rpcConfig.getTolerantStrategy());
-            response = strategy.doTolerant(null, e);
+            // 构造上下文
+            Map<String, Object> context = new HashMap<>();
+            context.put(TolerantStrategyConstant.SERVICE_LIST, serviceMetaInfos);
+            context.put(TolerantStrategyConstant.CURRENT_SERVICE, metaInfo);
+            context.put(TolerantStrategyConstant.RPC_REQUEST, rpcRequest);
+            response = strategy.doTolerant(context, e);
         }
         return response.getData();
     }
