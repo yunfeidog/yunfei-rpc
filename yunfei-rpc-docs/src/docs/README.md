@@ -33,6 +33,9 @@ SPI机制部分：
 + 负载均衡器：https://jonasx.com/archives/load-balancehttps://jonasx.com/archives/load-balance
 + 什么是负载均衡：https://www.codefather.cn/%E4%BB%80%E4%B9%88%E6%98%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/
 
+重试与容错：
+利用Spring-Retry定制化你的RPC重试：https://kriszhang.com/spring-retry/
+
 其他：
 
 + 剖析 | SOFARPC 框架之总体设计与扩展机制：https://mp.weixin.qq.com/s/ZKUmmFT0NWEAvba2MJiJfA
