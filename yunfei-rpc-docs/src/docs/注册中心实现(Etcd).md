@@ -1,6 +1,7 @@
 ---
 date: 2024-05-03
 title: 注册中心实现(Etcd)
+order: 6
 ---
 
 # 注册中心实现(Etcd)

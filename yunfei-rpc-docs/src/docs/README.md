@@ -1,6 +1,7 @@
 ---
 date: 2024-05-01
 title: 主页
+order: 1
 ---
 
 本次手写RPC框架参考了许多优秀的设计，如下：
@@ -14,8 +15,10 @@ title: 主页
 + 简易版Dubbo构造：https://blog.csdn.net/qq_38685503/category_10794078.html
 + 关于RPC的一些问题：https://www.nowcoder.com/discuss/353159058410643456?sourceSSR=users
 序列化方式解决方案：
-
 + 深入理解RPC框架的序列化方案：https://www.51cto.com/article/748249.html
++ 如何手撸一个较为完整的RPC框架：https://juejin.cn/post/6992867064952127524#heading-16
++ 简单RPC框架https://github.com/tychozzz/ltyzzz-rpc?tab=readme-ov-file
++ 如何实现一个RPC框架：https://www.cnblogs.com/whgk/p/14371290.html
 
 SPI机制部分：
 
@@ -41,3 +44,4 @@ SPI机制部分：
 
 其他：
 + 剖析 | SOFARPC 框架之总体设计与扩展机制：https://mp.weixin.qq.com/s/ZKUmmFT0NWEAvba2MJiJfA
++ 10分钟带你彻底搞懂RPC架构：https://blog.csdn.net/belongtocode/article/details/118639448
