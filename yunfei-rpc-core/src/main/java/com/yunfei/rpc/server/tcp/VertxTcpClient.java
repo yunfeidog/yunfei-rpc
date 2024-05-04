@@ -12,9 +12,7 @@ import io.vertx.core.net.NetClient;
 import io.vertx.core.net.NetSocket;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public class VertxTcpClient {
 
@@ -65,10 +63,8 @@ public class VertxTcpClient {
 
 
         });
-        System.out.println("Waiting for response");
         RpcResponse rpcResponse = null;
         rpcResponse = responseFuture.get(5, TimeUnit.SECONDS);
-        System.out.println("Received response");
         netClient.close();
         return rpcResponse;
     }
