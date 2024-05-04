@@ -1,6 +1,6 @@
 export const siteConfig = {
     //config.ts
-    base: "/yunfei-rpc-docs/",
+    base: "/yunfei-rpc/",
     title: "手写RPC框架",
     description: "自己动手，手写一个RPC框架",
 
