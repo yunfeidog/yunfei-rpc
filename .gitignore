@@ -43,3 +43,6 @@ build/
 /yunfei-rpc-docs/src/.vuepress/.cache/
 /yunfei-rpc-docs/src/.vuepress/.temp/
 /.idea/
+node_modules
+src
+.idea
