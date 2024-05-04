@@ -1,5 +1,0 @@
-jdk=com.yunfei.rpc.serializer.JdkSerializer
-hessian=com.yunfei.rpc.serializer.HessianSerializer
-kryo=com.yunfei.rpc.serializer.KryoSerializer
-json=com.yunfei.rpc.serializer.JsonSerializer
-protostuff=com.yunfei.rpc.serializer.ProtostuffSerializer

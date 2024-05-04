@@ -1,8 +1,0 @@
-rpc:
-  name: yunfei-rpc-test-yml
-  version: "1.0"
-  serverHost: localhost
-  serverPort: 8082
-  mock: false
-  serializer: jdk
-

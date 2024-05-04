@@ -1,3 +1,0 @@
-roundRobin=com.yunfei.rpc.loadbalancer.RoundRobinLoadBalancer
-random=com.yunfei.rpc.loadbalancer.RandomLoadBalancer
-consistentHash=com.yunfei.rpc.loadbalancer.ConsistentHashLoadBalancer

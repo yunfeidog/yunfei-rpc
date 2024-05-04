@@ -4,7 +4,7 @@ name: Deploy Docs
 on:
   push:
     branches:
-      - main
+      - docs
 
 permissions:
   contents: write
@@ -19,8 +19,6 @@ jobs:
           fetch-depth: 0
           # if your docs needs submodules, uncomment the following line
           # submodules: true
-      - name: 进入项目目录
-        run: cd yunfei-rpc-docs
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -33,9 +31,6 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-
-
-
 
       - name: Install Deps
         run: |

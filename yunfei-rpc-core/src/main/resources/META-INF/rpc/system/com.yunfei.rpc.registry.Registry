@@ -1,2 +1,0 @@
-etcd=com.yunfei.rpc.registry.EtcdRegistry
-zookeeper=com.yunfei.rpc.registry.ZooKeeperRegistry
