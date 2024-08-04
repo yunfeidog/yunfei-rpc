@@ -13,6 +13,14 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/example-common/pom.xml" />
+        <option value="$PROJECT_DIR$/example-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/example-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/example-springboot-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/example-springboot-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/yunfei-easy-rpc/pom.xml" />
+        <option value="$PROJECT_DIR$/yunfei-rpc-core/pom.xml" />
+        <option value="$PROJECT_DIR$/yunfei-rpc-spring-boot-starter/pom.xml" />
         <option value="$PROJECT_DIR$/yunfei-rpc-test/pom.xml" />
       </set>
     </option>
