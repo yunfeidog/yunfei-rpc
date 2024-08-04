@@ -89,6 +89,13 @@ public class EtcdRegistry implements Registry {
         String searchPrefix = ETCD_ROOT_PATH + serviceKey + "/";
         GetOption getOption = GetOption.builder().isPrefix(true).build();
         try {
+            // cxk ->cxkbaba
+            Lease leaseClient = client.getLeaseClient();
+
+            // 创建租约 30s
+            long leaseId = leaseClient.grant(30).get().getID();
+            PutOption putOption = PutOption.builder().withLeaseId(leaseId).build();
+            kvClient.put(ByteSequence.from("cxk", StandardCharsets.UTF_8), ByteSequence.from("cxkbaba", StandardCharsets.UTF_8), putOption).get();
             List<KeyValue> keyValues = kvClient.get(ByteSequence.from(searchPrefix, StandardCharsets.UTF_8), getOption).get().getKvs();
             // 解析服务
             List<ServiceMetaInfo> serviceMetaInfos = keyValues.stream().map(keyValue -> {
@@ -113,6 +120,7 @@ public class EtcdRegistry implements Registry {
         for (String key : localRegisterNodeKeySet) {
             try {
                 kvClient.delete(ByteSequence.from(key, StandardCharsets.UTF_8)).get();
+                System.out.println("下线:" + key);
             } catch (Exception e) {
                 throw new RuntimeException(key + "下线失败", e);
             }
@@ -146,6 +154,7 @@ public class EtcdRegistry implements Registry {
                         KeyValue keyValue = keyValues.get(0);
                         String value = keyValue.getValue().toString(StandardCharsets.UTF_8);
                         ServiceMetaInfo serviceMetaInfo = JSONUtil.toBean(value, ServiceMetaInfo.class);
+                        System.out.println("续约:" + serviceMetaInfo.getServiceNodeKey());
                         register(serviceMetaInfo);
                     } catch (Exception e) {
                         throw new RuntimeException(key + "续约失败", e);
@@ -167,7 +176,6 @@ public class EtcdRegistry implements Registry {
         if (newWatch) {
             watchClient.watch(ByteSequence.from(serviceNodeKey, StandardCharsets.UTF_8), (response) -> {
                 for (WatchEvent event : response.getEvents()) {
-
                     switch (event.getEventType()) {
                         case DELETE:
                             registryServiceCache.clearCache();
