@@ -4,7 +4,7 @@ name: Deploy Docs
 on:
   push:
     branches:
-      - main
+      - docs
 
 permissions:
   contents: write
@@ -32,14 +32,10 @@ jobs:
           node-version: 20
           cache: pnpm
 
-
-      - name: 进入项目目录
-        run: cd yunfei-rpc-docs
-
       - name: Install Deps
         run: |
           corepack enable
-          pnpm install --frozen-lockfile
+          pnpm install --no-frozen-lockfile
 
       - name: Build Docs
         env:

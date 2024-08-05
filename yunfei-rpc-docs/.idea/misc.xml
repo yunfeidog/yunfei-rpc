@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/yunfei-rpc-core/pom.xml" />
+        <option value="$PROJECT_DIR$/yunfei-rpc-spring-boot-starter/pom.xml" />
+        <option value="$PROJECT_DIR$/example-springboot-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/example-springboot-provider/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/example-common/pom.xml" />
+        <option value="$PROJECT_DIR$/example-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/example-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/example-springboot-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/example-springboot-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/yunfei-easy-rpc/pom.xml" />
+        <option value="$PROJECT_DIR$/yunfei-rpc-core/pom.xml" />
+        <option value="$PROJECT_DIR$/yunfei-rpc-spring-boot-starter/pom.xml" />
+        <option value="$PROJECT_DIR$/yunfei-rpc-test/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

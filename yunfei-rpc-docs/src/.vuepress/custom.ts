@@ -24,9 +24,9 @@ export const siteConfig = {
     // 文章所在仓库
     docsRepo: "https://github.com/yunfeidog/yunfei-rpc",
     // 文章所在分支
-    docsBranch: "main",
+    docsBranch: "docs",
     // 全局设置页脚信息
-    footer: "页脚信息-俺不用备案信息",
+    footer: "<a>备案信息-皖ICP备2023022209</a>",
 
 
     // 博客配置

@@ -3,7 +3,7 @@
 
 src/.vuepress/.temp
 src/.vuepress/.cache
-
+.fastRequest
 .idea
 
 # Logs

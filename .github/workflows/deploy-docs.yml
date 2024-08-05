@@ -6,12 +6,18 @@ on:
     branches:
       - main
 
+env:
+  WORK_DIR: yunfei-rpc-docs #todo: 修改为你的项目文档目录
+
 permissions:
   contents: write
 
 jobs:
   deploy-gh-pages:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORK_DIR }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,8 +25,9 @@ jobs:
           fetch-depth: 0
           # if your docs needs submodules, uncomment the following line
           # submodules: true
-      - name: 进入项目目录
-        run: cd yunfei-rpc-docs
+      - name: 列出当前目录
+        run: |
+          ls -al
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -33,9 +40,7 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-
-
-
+          cache-dependency-path: ${{ env.WORK_DIR }}/pnpm-lock.yaml
 
       - name: Install Deps
         run: |
@@ -54,4 +59,4 @@ jobs:
         with:
           # Deploy Docs
           branch: gh-pages
-          folder: src/.vuepress/dist
+          folder: ${{env.WORK_DIR}}/src/.vuepress/dist
